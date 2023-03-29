@@ -14,16 +14,18 @@ def system_enemy_spawner(ecs_world:esper.World, delta_time:float):
     components = ecs_world.get_components(CEnemySpawner)
     c_e_s:CEnemySpawner
     for entity, c_e_s in components:
-        c_e_s.now+= delta_time
+        
+        c_e_s[0].now+= delta_time
         enemy_spawn:SpawnEventData
-        for enemy_spawn  in c_e_s.spawnEventData:
+        for enemy_spawn  in c_e_s[0].spawnEventData:
+            
+            enemy = enemy_spawn.enemy_type
+            pos = enemy_spawn.pos
 
-            enemy = enemy_spawn['enemy_type']
-            size = enemy['size']
-            color = enemy['color']
-            pos = enemy_spawn['position']
-            crear_cuadrado(ecs_world,
-                                    pygame.Vector2(size['x'],size['y']), 
-                                    pygame.Vector2(pos['x'], pos['y']),
-                                    pygame.Vector2(enemy['velocity_min'],enemy['velocity_max']),
-                                    pygame.Color(color['r'], color['g'], color['b']))
+            if enemy_spawn.spawned==False and c_e_s[0].now>=enemy_spawn.time:
+                enemy_spawn.spawned=True
+                crear_cuadrado(ecs_world,
+                                        enemy, 
+                                        pygame.Vector2(pos[0], pos[1]),
+                                        enemy_config_file
+                                        )

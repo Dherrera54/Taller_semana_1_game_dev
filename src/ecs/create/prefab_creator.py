@@ -7,14 +7,18 @@ from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
 
 def crear_cuadrado(ecs_world: esper.World,
-                   size: pygame.Vector2, 
+                   enemy_type: str, 
                    pos: pygame.Vector2, 
-                   vel: pygame.Vector2, 
-                   col: pygame.Vector2):
+                   enemy_config: dict):
+
+    size=  enemy_config[enemy_type]['size'] 
+    color=enemy_config[enemy_type]['color']
+    vel=  pygame.Vector2(enemy_config[enemy_type]['velocity_min'],enemy_config[enemy_type]['velocity_max'])
+     
     cuad_entity = ecs_world.create_entity()
     
     ecs_world.add_component(cuad_entity,
-                            CSurface(size,col))
+                            CSurface(pygame.Vector2(size['x'],size['y']), pygame.Color(color['r'], color['g'],color['b'])))
     ecs_world.add_component(cuad_entity,
                             CTransform(pos))
     ecs_world.add_component(cuad_entity,
