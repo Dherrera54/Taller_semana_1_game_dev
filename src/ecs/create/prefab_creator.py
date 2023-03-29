@@ -1,3 +1,4 @@
+import random
 import esper
 import pygame
 import json
@@ -13,7 +14,11 @@ def crear_cuadrado(ecs_world: esper.World,
 
     size=  enemy_config[enemy_type]['size'] 
     color=enemy_config[enemy_type]['color']
-    vel=  pygame.Vector2(enemy_config[enemy_type]['velocity_min'],enemy_config[enemy_type]['velocity_max'])
+
+    vel_x=random.randint(enemy_config[enemy_type]['velocity_min'], enemy_config[enemy_type]['velocity_max']) 
+    vel_y=random.randint(enemy_config[enemy_type]['velocity_min'], enemy_config[enemy_type]['velocity_max']) 
+
+    vel=  pygame.Vector2(vel_x,vel_y)
      
     cuad_entity = ecs_world.create_entity()
     
