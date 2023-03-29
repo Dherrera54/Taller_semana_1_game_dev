@@ -1,3 +1,4 @@
+from src.ecs.create.prefab_creator import crear_spawner, crear_cuadrado
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_screen_bounce import system_screen_bounce
 from src.ecs.systems.s_rendering import system_rendering
@@ -35,12 +36,14 @@ class GameEngine:
         self._clean()
 
     def _create(self):
+
+        crear_spawner(self.ecs_world, level_config_file['enemy_spawn_events'])
         
-        for enemy in level_config_file['enemy_spawn_events']:            
+        """ for enemy in level_config_file['enemy_spawn_events']:            
             system_enemy_spawner(self.ecs_world,
                                     enemy['time'],
                                     enemy['enemy_type'],
-                                    pygame.Vector2(enemy['position']['x'],enemy['position']['y']))
+                                    pygame.Vector2(enemy['position']['x'],enemy['position']['y'])) """
 
     def _calculate_time(self):
         self.clock.tick(self.framerate)
@@ -53,6 +56,7 @@ class GameEngine:
             
 
     def _update(self):
+        system_enemy_spawner(self.ecs_world, self.delta_time)
         system_movement(self.ecs_world, self.delta_time)
         system_screen_bounce(self.ecs_world, self.screen)
 
