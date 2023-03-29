@@ -1,4 +1,4 @@
-from src.ecs.create.prefab_creator import crear_cuadrado
+from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_screen_bounce import system_screen_bounce
 from src.ecs.systems.s_rendering import system_rendering
 from src.ecs.systems.s_movement import system_movement
@@ -7,6 +7,7 @@ import pygame
 import json
 
 window_config_file = json.load(open('./assets/cfg/window.json'))
+level_config_file = json.load(open('./assets/cfg/level_01.json'))
 window_size = window_config_file['window']['size']
 framerate = window_config_file['window']['framerate']
 bg_color = window_config_file['window']['bg_color']
@@ -34,11 +35,12 @@ class GameEngine:
         self._clean()
 
     def _create(self):
-        crear_cuadrado(self.ecs_world,
-                        pygame.Vector2(50,50),
-                        pygame.Vector2(30,50),
-                        pygame.Vector2(-300,50),
-                        pygame.Color(255,50,50))
+        
+        for enemy in level_config_file['enemy_spawn_events']:            
+            system_enemy_spawner(self.ecs_world,
+                                    enemy['time'],
+                                    enemy['enemy_type'],
+                                    pygame.Vector2(enemy['position']['x'],enemy['position']['y']))
 
     def _calculate_time(self):
         self.clock.tick(self.framerate)
@@ -48,6 +50,7 @@ class GameEngine:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_running=False
+            
 
     def _update(self):
         system_movement(self.ecs_world, self.delta_time)

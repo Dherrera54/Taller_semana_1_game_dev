@@ -1,6 +1,7 @@
+import esper
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
-import esper
+
 
 
 def system_movement(world:esper.World, delta_time:float):
