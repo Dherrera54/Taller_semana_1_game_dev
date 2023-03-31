@@ -1,4 +1,4 @@
-from src.ecs.create.prefab_creator import crear_spawner, crear_cuadrado
+from src.create.prefab_creator import crear_spawner, crear_cuadrado
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_screen_bounce import system_screen_bounce
 from src.ecs.systems.s_rendering import system_rendering

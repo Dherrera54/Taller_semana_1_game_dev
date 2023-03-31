@@ -1,5 +1,5 @@
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
-from src.ecs.create.prefab_creator import crear_cuadrado
+from src.create.prefab_creator import crear_cuadrado
 import esper
 import pygame
 import json
