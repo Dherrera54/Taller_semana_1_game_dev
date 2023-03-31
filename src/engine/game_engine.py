@@ -9,15 +9,15 @@ import json
 
 window_config_file = json.load(open('./assets/cfg/window.json'))
 level_config_file = json.load(open('./assets/cfg/level_01.json'))
-window_size = window_config_file['window']['size']
-framerate = window_config_file['window']['framerate']
-bg_color = window_config_file['window']['bg_color']
+window_size = window_config_file['size']
+framerate = window_config_file['framerate']
+bg_color = window_config_file['bg_color']
 
 class GameEngine:
     def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode((window_size['w'],window_size['h']),pygame.SCALED)
-        pygame.display.set_caption(window_config_file['window']['title'])
+        pygame.display.set_caption(window_config_file['title'])
         self.clock = pygame.time.Clock()
         self.is_running = False
         self.framerate = framerate

@@ -1,4 +1,4 @@
-from src.ecs.components.c_enemy_spawner import CEnemySpawner, CEnemy
+from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.create.prefab_creator import crear_cuadrado
 import esper
 import pygame
@@ -11,7 +11,6 @@ def system_enemy_spawner(ecs_world:esper.World, delta_time:float):
 
     components = ecs_world.get_components(CEnemySpawner)
     c_e_s:CEnemySpawner
-    enemy:CEnemy
     
     for entity, c_e_s in components:
 
@@ -19,11 +18,11 @@ def system_enemy_spawner(ecs_world:esper.World, delta_time:float):
         
         for enemy  in c_e_s[0].enemies:
 
-            enemy_type = enemy.enemy_type
-            enemy_pos = enemy.pos
+            enemy_type = enemy[1]
+            enemy_pos = enemy[2]
             
-            if enemy.spawned==False and c_e_s[0].now>=enemy.time:
-                enemy.spawned=True
+            if enemy[3]==False and c_e_s[0].now>=enemy[0]:
+                enemy[3]=True
                 crear_cuadrado(ecs_world,
                                 enemy_type, 
                                 pygame.Vector2(enemy_pos[0], enemy_pos[1]),

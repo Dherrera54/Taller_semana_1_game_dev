@@ -1,7 +1,6 @@
 import random
 import esper
 import pygame
-import json
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.c_surface import CSurface
